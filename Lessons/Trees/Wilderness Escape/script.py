@@ -4,47 +4,99 @@
 class TreeNode:
   def __init__(self, story_piece):
     self.story_piece = story_piece
+    self.choices = []
 
-  def add_child(self, child_node):
-    self.choices = child_node
+  def add_child(self, node):
+    self.choices.append(node)
+
+  def traverse(self):
+    story_node = self
+    print(story_node.story_piece)
+    while story_node.choices != []:
+      choice = int(input("Enter 1 or 2 to continue your story: "))-1
+      if choice not in [0,1]:
+        print("Uhhh, no. Pick either 1 or 2. Try again.")
+      else:
+        chosen_child = story_node.choices[choice]
+        print(chosen_child.story_piece)
+        story_node = chosen_child
 
 
 ######
 # VARIABLES FOR TREE
 ######
-story_piece = """
-You are in a forest clearing. There is a path to the left.
+
+story_root = TreeNode("""
+You are in a forest clearing.
+There is a path to the left.
+
 A bear emerges from the trees and roars!
+
 Do you: 
 1 ) Roar back!
 2 ) Run to the left...
-"""
+""")
 
-child_a = """
+choice_a = TreeNode("""
 The bear is startled and runs away.
+
 Do you:
 1 ) Shout 'Sorry bear!'
 2 ) Yell 'Hooray!'
-"""
+""")
 
-child_b = """
-You come across a clearing full of flowers. 
+choice_a_1 = TreeNode("""
+The bear returns and tells you it's been a rough week. After making peace with
+a talking bear, he shows you the way out of the forest.
+ 
+YOU HAVE ESCAPED THE WILDERNESS.
+""")
+
+choice_a_2 = TreeNode("""
+The bear returns and tells you that bullying is not okay before leaving you alone
+in the wilderness.
+ 
+YOU REMAIN LOST.
+""")
+
+choice_b = TreeNode("""
+You come across a clearing full of flowers.
+
 The bear follows you and asks 'what gives?'
+
 Do you:
 1 ) Gasp 'A talking bear!'
 2 ) Explain that the bear scared you.
-"""
+""")
 
+choice_b_1 = TreeNode("""
+The bear is unamused. After smelling the flowers, it turns around and leaves you alone.
+ 
+YOU REMAIN LOST.
+""")
+
+choice_b_2 = TreeNode("""
+The bear understands and apologizes for startling you. Your new friend shows you a 
+path leading out of the forest.
+ 
+YOU HAVE ESCAPED THE WILDERNESS.
+""")
+
+
+story_root.add_child(choice_a)
+story_root.add_child(choice_b)
+choice_a.add_child(choice_a_1)
+choice_a.add_child(choice_a_2)
+choice_b.add_child(choice_b_1)
+choice_b.add_child(choice_b_2)
 
 ######
 # TESTING AREA
 ######
-story_root = TreeNode(story_piece)
-story_root.add_child(child_a)
-story_root.add_child(child_b)
+
+print("Once upon a time…")
 
 # user_choice = input("What's your name? ")
 # print(user_choice)
 
-print("Once upon a time…")
-print(story_root.story_piece)
+story_root.traverse()
