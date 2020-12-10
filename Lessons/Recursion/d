@@ -1,0 +1,9 @@
+{'data': 14, 
+
+'left_child': {'data': 13, 
+'left_child': {'data': 12, 
+'left_child': 'No Child',
+'right_child': 'No Child'}, 
+'right_child': 'No Child'}, 
+
+'right_child': {'data': 16, 'left_child': {'data': 15, 'left_child': 'No Child', 'right_child': 'No Child'}, 'right_child': 'No Child'}}
